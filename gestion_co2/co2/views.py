@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
-from django.contrib.auth import authenticate
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login as do_login
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login as do_login
-
+from django.contrib.auth.models import AnonymousUser
 
 # Create your views here.
 def index(request):
-    if (models.Usuario.rol = 2) {
-       return render(request, 'indexGestor.html', context={'nombre_empresa': 'Empresa'})
-
-    } else
+    if isinstance(request.user, AnonymousUser):
         return render(request, 'index.html', context={'nombre_empresa': 'Empresa'})
+
+    else:
+        if (request.user.empleado.rol == 2):
+            return render(request, 'indexGestor.html', context={'nombre_empresa': 'Empresa'})
+
+        else:
+            return render(request, 'index.html', context={'nombre_empresa': 'Empresa'})
 
 
 def login(request):
@@ -39,4 +42,4 @@ def login(request):
                 return redirect('/')
 
     # Si llegamos al final renderizamos el formulario
-    return render(request, "login.html", {'form': form},context={'nombre_empresa': 'Empresa'})
+    return render(request, "login.html", context={'form': form, 'nombre_empresa': 'Empresa'})
