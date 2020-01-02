@@ -39,4 +39,4 @@ def login(request):
                 return redirect('/')
 
     # Si llegamos al final renderizamos el formulario
-    return render(request, "login.html", {'form': form},context={'nombre_empresa': 'Empresa'})
+    return render(request, "login.html", {'form': form})
