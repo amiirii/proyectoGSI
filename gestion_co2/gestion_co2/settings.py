@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'co2.apps.Co2Config',
+    'api.apps.ApiConfig',
     'rest_framework',
 ]
 
@@ -131,7 +132,13 @@ STATICFILES_DIRS = [
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
-# AUTH_USER_MODEL = 'co2.Empleado'
-
 # Nombre de la empresa. Cambia el nombre de la empresa en todas las vistas
 NOMBRE_EMPRESA = 'Empresa'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
