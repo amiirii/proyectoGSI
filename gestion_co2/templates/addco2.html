@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Strongly Typed by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>{{ nombre_empresa }} - Sistema de gestión de CO2</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'gestion_co2/assets/css/main.css' %}" />
+	</head>
+	<body class="homepage is-preload">
+		<div id="page-wrapper">
+
+			{% include 'header.html' %}
+
+			<!-- Features -->
+				<section id="features">
+					<div class="container">
+						<header>
+							<h2>Emisones de CO<sub>2</sub></h2>
+						</header>
+						<div class="row aln-center">
+							<form action="" method="post">
+                                <div>Cargo en la empresa</div>
+                                <input name="admin" type="checkbox" value="admin"> Administrador
+                                <input name="gerente" type="checkbox" value="gerente"> Gerente
+                                <input name="empleado" type="checkbox" value="empleado"> Empleado
+                            
+                                <div>Tipo creacion del co2</div>
+                                <input name="automovil" type="checkbox" value="auto"> Automovil
+                                <input name="electricidad" type="checkbox" value="electricidad"> Electricidad
+                                
+                                <div>Emision de co2</div>
+                                <input type="text" name="co2" value="co2">
+                                
+                                <div>
+                                    <input type="submit" value="Enviar">
+                                </div>
+                            </form>
+						</div>
+					</div>
+				</section>
+
+				{% include 'footer.html' %}
+
+		</div>
+
+		{% include 'scripts.html' %}
+
+	</body>
+</html>

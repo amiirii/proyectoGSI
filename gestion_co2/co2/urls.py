@@ -20,4 +20,5 @@ from django.contrib import admin
 urlpatterns = [
     path('', views.index),
     path('login/', views.login),
+    path('add/', views.add),
 ]

@@ -43,3 +43,6 @@ def login(request):
 
     # Si llegamos al final renderizamos el formulario
     return render(request, "login.html", context={'form': form, 'nombre_empresa': 'Empresa'})
+
+def add(request):
+	return render(request, 'addco2.html', context={'nombre_empresa': 'Empresa'})
