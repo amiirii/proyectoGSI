@@ -10,18 +10,18 @@
             <nav id="nav">
                 <ul>
                     <li><a class="icon solid fa-home" href="/"><span>Página principal</span></a></li>
+                    {% if user.is_authenticated %}
                     <li>
-                        <a href="#" class="icon fa-chart-bar"><span>Login</span></a>
+                        <a href="#" class="icon fa-user"><span>Bienvenid@, {{ user.username }}</span></a>
                         <ul>
-                            {% if user.is_authenticated %}
                             <li><a href="{{ url_mi_cuenta }}">Mi cuenta</a></li>
                             <li><a href="/logout/">Cerrar sesión</a></li>
-                            {% else %}
-                            <li><a href="/login/">Iniciar sesión</a></li>
-                            <li><a href="{{ url_crear_cuenta }}">Crear cuenta</a></li>
-                            {% endif %}
                         </ul>
                     </li>
+                    {% else %}
+                    <li><a class="icon solid fa-user" href="/login/"><span>Iniciar sesión</span></a></li>
+                    {% endif %}
+                    
                 </ul>
             </nav>
 
