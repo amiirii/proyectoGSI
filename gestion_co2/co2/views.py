@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as do_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -44,5 +45,6 @@ def login(request):
     # Si llegamos al final renderizamos el formulario
     return render(request, "login.html", context={'form': form, 'nombre_empresa': 'Empresa'})
 
+@login_required(login_url='/login')
 def add(request):
 	return render(request, 'addco2.html', context={'nombre_empresa': 'Empresa'})
