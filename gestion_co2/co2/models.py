@@ -1,26 +1,14 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 # Create your models here.
-class Empleado(models.Model):
-    models.OneToOneField(User, on_delete=models.CASCADE)
-    rol = models.IntegerField()
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Empleado.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.Empleado.save()
+class Empleado(User):
+    rol = models.IntegerField(default=0)    # 0 = Emleado; 1 = Gestor
 
 class Edificio(models.Model):
     id = models.AutoField(primary_key=True)
     direccion = models.TextField(unique=True)
-    id_gestor = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_gestor = models.ForeignKey(Empleado, on_delete=models.CASCADE)
 
 class Vehiculo(models.Model):
     matricula = models.TextField(primary_key=True)
@@ -32,7 +20,7 @@ class ConsumosVehiculos(models.Model):
     matricula = models.ForeignKey(Vehiculo, on_delete=models.CASCADE)
     fecha = models.DateTimeField()
     km = models.DecimalField(decimal_places=2, max_digits=5)
-    conductor = models.ForeignKey(User, on_delete=models.CASCADE)
+    conductor = models.ForeignKey(Empleado, on_delete=models.CASCADE)
 
 class ConsumosEdificios(models.Model):
     id_edificio = models.ForeignKey(Edificio, on_delete=models.CASCADE)
