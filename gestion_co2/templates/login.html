@@ -25,7 +25,10 @@
 						</header>
 						<div class="row aln-center">
 							<!-- LOGIN -->
-							<form method="POST">
+							<form action="/login/" method="POST">
+								{% if nxt %}
+								<input type="hidden" name="next" value="{{ nxt }}"/>
+								{% endif %}
 								{{ form.as_p }}
 								{% csrf_token %}
 								<button type="submit">Login</button>

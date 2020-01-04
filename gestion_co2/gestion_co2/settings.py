@@ -130,4 +130,7 @@ STATICFILES_DIRS = [
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
-AUTH_USER_MODEL = 'co2.Empleado'
+# AUTH_USER_MODEL = 'co2.Empleado'
+
+# Nombre de la empresa. Cambia el nombre de la empresa en todas las vistas
+NOMBRE_EMPRESA = 'Empresa'
