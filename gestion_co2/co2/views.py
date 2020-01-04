@@ -9,16 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    if isinstance(request.user, AnonymousUser):
-        return render(request, 'index.html', context={'nombre_empresa': 'Empresa'})
-
-    else:
-        if (request.user.empleado.rol == 2):
-            return render(request, 'indexGestor.html', context={'nombre_empresa': 'Empresa'})
-
-        else:
-            return render(request, 'index.html', context={'nombre_empresa': 'Empresa'})
-
+    return render(request, 'index.html', context={'nombre_empresa': 'Empresa'})
 
 def login(request):
     # Creamos el formulario de autenticación vacío

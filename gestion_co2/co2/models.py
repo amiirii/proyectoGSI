@@ -1,9 +1,10 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Create your models here.
-class Empleado(User):
+class Empleado(AbstractUser):
     rol = models.IntegerField(default=0)    # 0 = Emleado; 1 = Gestor
+    REQUIRED_FIELDS = ['rol', 'email']
 
 class Edificio(models.Model):
     id = models.AutoField(primary_key=True)
