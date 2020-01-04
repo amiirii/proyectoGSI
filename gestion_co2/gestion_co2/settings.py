@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'co2.apps.Co2Config',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

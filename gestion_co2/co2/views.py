@@ -53,6 +53,9 @@ def logout(request):
     do_logout(request)
     return redirect('/')
 
+def informe_mensual(request):
+    return render(request, 'informe.html', context={'nombre_empresa': settings.NOMBRE_EMPRESA})
+
 @login_required(login_url='/login')
 def add(request):
 	return render(request, 'addco2.html', context={'nombre_empresa': settings.NOMBRE_EMPRESA})

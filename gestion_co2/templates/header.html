@@ -11,6 +11,7 @@
                 <ul>
                     <li><a class="icon solid fa-home" href="/"><span>Página principal</span></a></li>
                     {% if user.is_authenticated %}
+                    <li><a class="icon solid fa-tree" href="/add/"><span>Añadir emisiones de CO<sub>2</sub></span></a></li>
                     <li>
                         <a href="#" class="icon fa-user"><span>Bienvenid@, {{ user.username }}</span></a>
                         <ul>
@@ -21,9 +22,7 @@
                     {% else %}
                     <li><a class="icon solid fa-user" href="/login/"><span>Iniciar sesión</span></a></li>
                     {% endif %}
-                    
                 </ul>
             </nav>
-
     </div>
 </section>
