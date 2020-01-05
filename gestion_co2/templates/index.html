@@ -1,4 +1,5 @@
 {% load static %}
+{% load django_altair %}
 <!DOCTYPE HTML>
 <!--
 	Strongly Typed by HTML5 UP
@@ -11,6 +12,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{% static 'gestion_co2/assets/css/main.css' %}" />
+		{% include 'scripts.html' %}
 	</head>
 	<body class="homepage is-preload">
 		<div id="page-wrapper">
@@ -28,7 +30,9 @@
 
 								<!-- Feature -->
 									<section>
-										<a href="#" class="image featured"><img src="{%static 'gestion_co2/images/pic01.jpg' %}" alt="" /></a>
+										<div class="image featured">
+											{% render_chart chart %}
+										</div>
 										<header>
 											<h3>Gráfico 1</h3>
 										</header>
@@ -40,7 +44,9 @@
 
 								<!-- Feature -->
 									<section>
-										<a href="#" class="image featured"><img src="{%static 'gestion_co2/images/pic02.jpg' %}" alt="" /></a>
+										<div class="image featured">
+											{% render_chart chart1 %}
+										</div>
 										<header>
 											<h3>Gráfico 2</h3>
 										</header>
@@ -79,8 +85,5 @@
 				{% include 'footer.html' %}
 
 		</div>
-
-		{% include 'scripts.html' %}
-
 	</body>
 </html>

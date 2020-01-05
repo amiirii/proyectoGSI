@@ -17,7 +17,37 @@ from .models import ConsumosVehiculosForm, ConsumosEdificiosForm, ConsumosVehicu
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html', context={'nombre_empresa': settings.NOMBRE_EMPRESA})
+    consumos_edificios = ConsumosEdificios.objects.values('id_edificio').annotate(dcount=Sum('consumo'))
+    consumos_vehiculos = ConsumosVehiculos.objects.values('matricula').annotate(dcount=Sum('km'))
+
+    ids_edificios = [e['id_edificio'] for e in consumos_edificios]
+    ids_vehiculos = [e['matricula'] for e in consumos_vehiculos]
+
+    emisiones_edificios = [float(e['dcount']) for e in consumos_edificios]
+    emisiones_vehiculos = [float(e['dcount']) for e in consumos_vehiculos]
+    
+
+    datos = pd.DataFrame({
+        'vehiculo': ids_vehiculos,
+        'km': emisiones_vehiculos
+    })
+
+    chart = alt.Chart(datos).mark_bar().encode(
+        x='vehiculo',
+        y='km'
+    ).interactive()
+
+    datos2 = pd.DataFrame({
+        'edificio': ids_edificios,
+        'consumo': emisiones_edificios
+    })
+
+    chart1 = alt.Chart(datos2).mark_bar().encode(
+        x='edificio',
+        y='consumo',
+    ).interactive()
+
+    return render(request, 'index.html', context={'chart': chart, 'chart1': chart1, 'nombre_empresa': settings.NOMBRE_EMPRESA})
 
 def login(request):
 
@@ -84,37 +114,3 @@ def add(request):
                 return HttpResponse('Los datos se han añadido correctamente')
             else:
                 return HttpResponse('Ha ocurrido un error')
-        
-def grafico(request):
-
-    consumos_edificios = ConsumosEdificios.objects.values('id_edificio').annotate(dcount=Sum('consumo'))
-    consumos_vehiculos = ConsumosVehiculos.objects.values('matricula').annotate(dcount=Sum('km'))
-
-    ids_edificios = [e['id_edificio'] for e in consumos_edificios]
-    ids_vehiculos = [e['matricula'] for e in consumos_vehiculos]
-
-    emisiones_edificios = [float(e['dcount']) for e in consumos_edificios]
-    emisiones_vehiculos = [float(e['dcount']) for e in consumos_vehiculos]
-    
-
-    datos = pd.DataFrame({
-        'vehiculo': ids_vehiculos,
-        'km': emisiones_vehiculos
-    })
-
-    chart = alt.Chart(datos).mark_bar().encode(
-        x='vehiculo',
-        y='km'
-    ).interactive()
-
-    datos2 = pd.DataFrame({
-        'edificio': ids_edificios,
-        'consumo': emisiones_edificios
-    })
-
-    chart1 = alt.Chart(datos2).mark_bar().encode(
-        x='edificio',
-        y='consumo',
-    ).interactive()
-
-    return render(request, 'grafico.html', context={'chart': chart, 'chart1': chart1})
