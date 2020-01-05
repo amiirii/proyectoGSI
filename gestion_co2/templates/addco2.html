@@ -24,8 +24,27 @@
 							<h2>Emisones de CO<sub>2</sub></h2>
 						</header>
 						<div class="row aln-center">
-							<form action="" method="post">
-								{{ form.as_p }}
+							<form>
+								<p>Selecciona el tipo de emisiones</p>
+								<input type="button" id="mostrar_form_vehiculo" value="Trayecto en vehículo"/>
+								<input type="button" id="mostrar_form_edificio" value="Consumo de edificio"/>
+							</form>
+						</div>
+						<div class="row aln-center">
+							<form id="form_vehiculo" action="" method="post">
+								{% for field in form_vehiculo %}
+									<b>{{ field.label }}</b>
+									{{ field.help_text }}
+									{{ field }}
+								{% endfor %}
+                                <input type="submit" value="Enviar"/>
+							</form>
+							<form id="form_edificio" action="" method="post">
+								{% for field in form_edificio %}
+									<b>{{ field.label }}</b>
+									{{ field.help_text }}
+									{{ field }}
+								{% endfor %}
                                 <input type="submit" value="Enviar"/>
                             </form>
 						</div>
@@ -37,6 +56,18 @@
 		</div>
 
 		{% include 'scripts.html' %}
+		<script>
+			$("#form_edificio").hide();
+			$("#form_vehiculo").hide();
+			$("#mostrar_form_edificio").click(function() {
+				$("#form_edificio").fadeIn();
+				$("#form_vehiculo").hide();
+			});
+			$("#mostrar_form_vehiculo").click(function() {
+				$("#form_vehiculo").fadeIn();
+				$("#form_edificio").hide();	
+			});
+		</script>
 
 	</body>
 </html>

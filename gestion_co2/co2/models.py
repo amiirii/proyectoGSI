@@ -3,6 +3,7 @@ from django.db import models
 from django.forms import ModelForm
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -53,8 +54,32 @@ class ConsumosEdificiosForm(ModelForm):
     class Meta:
         model = ConsumosEdificios
         fields = ['id_edificio', 'mes', 'year', 'consumo']
+        labels = {
+            'id_edificio': _('ID del edificio'),
+            'mes': _('Mes'),
+            'year': _('Año'),
+            'consumo': _('Consumo eléctrico (en kW/h)'),
+        }
+        help_texts = {
+            'id_edificio': _('El identificador del edificio'),
+            'mes': _('Mes en el que se han realizado las emisiones'),
+            'year': _('Año en el que se han realizado las emisiones'),
+            'consumo': _('Consumo eléctrico del edificio durante el mes en kW/h'),
+        }
 
 class ConsumosVehiculosForm(ModelForm):
     class Meta:
         model = ConsumosVehiculos
         fields = ['matricula', 'fecha', 'km', 'conductor']
+        labels = {
+            'matricula': _('Matrícula'),
+            'fecha': _('Fecha'),
+            'km': _('Distancia (km)'),
+            'conductor': _('Conductor'),
+        }
+        help_texts = {
+            'matricula': _('Matrícula del vehiculo'),
+            'fecha': _('Fecha del trayecto'),
+            'km': _('Distancia recorrida en kilómetros'),
+            'conductor': _('Conductor del vehiculo'),
+        }

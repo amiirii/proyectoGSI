@@ -61,13 +61,5 @@ def informe_mensual(request):
 
 @login_required(login_url='/login')
 def add(request):
-	return render(request, 'addco2.html', context={'form': ConsumosVehiculosForm(), 'nombre_empresa': settings.NOMBRE_EMPRESA})
-
-@login_required(login_url='/login')
-def add_emisiones_vehiculo(request):
-	return HttpResponse(ConsumosVehiculosForm().as_p())
-
-@login_required(login_url='/login')
-def add_emisiones_edificio(request):
-	return HttpResponse(ConsumosEdificiosForm().as_p())
+	return render(request, 'addco2.html', context={'form_vehiculo': ConsumosVehiculosForm(), 'form_edificio': ConsumosEdificiosForm(), 'nombre_empresa': settings.NOMBRE_EMPRESA})
 
