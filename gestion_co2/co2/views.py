@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import altair as alt
+import pandas as pd
+
+from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, logout as do_logout, login as do_login
@@ -9,7 +13,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
-from .models import ConsumosVehiculosForm, ConsumosEdificiosForm
+from .models import ConsumosVehiculosForm, ConsumosEdificiosForm, ConsumosVehiculos, ConsumosEdificios
 
 # Create your views here.
 def index(request):
@@ -81,4 +85,36 @@ def add(request):
             else:
                 return HttpResponse('Ha ocurrido un error')
         
+def grafico(request):
 
+    consumos_edificios = ConsumosEdificios.objects.values('id_edificio').annotate(dcount=Sum('consumo'))
+    consumos_vehiculos = ConsumosVehiculos.objects.values('matricula').annotate(dcount=Sum('km'))
+
+    ids_edificios = [e['id_edificio'] for e in consumos_edificios]
+    ids_vehiculos = [e['matricula'] for e in consumos_vehiculos]
+
+    emisiones_edificios = [float(e['dcount']) for e in consumos_edificios]
+    emisiones_vehiculos = [float(e['dcount']) for e in consumos_vehiculos]
+    
+
+    datos = pd.DataFrame({
+        'vehiculo': ids_vehiculos,
+        'km': emisiones_vehiculos
+    })
+
+    chart = alt.Chart(datos).mark_bar().encode(
+        x='vehiculo',
+        y='km'
+    ).interactive()
+
+    datos2 = pd.DataFrame({
+        'edificio': ids_edificios,
+        'consumo': emisiones_edificios
+    })
+
+    chart1 = alt.Chart(datos2).mark_bar().encode(
+        x='edificio',
+        y='consumo',
+    ).interactive()
+
+    return render(request, 'grafico.html', context={'chart': chart, 'chart1': chart1})

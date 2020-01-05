@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'co2.apps.Co2Config',
     'api.apps.ApiConfig',
     'rest_framework',
+    'django_altair',
 ]
 
 MIDDLEWARE = [

@@ -71,6 +71,7 @@ class ConsumosVehiculosForm(ModelForm):
     class Meta:
         model = ConsumosVehiculos
         fields = ['matricula', 'fecha', 'km', 'conductor']
+
         labels = {
             'matricula': _('Matrícula'),
             'fecha': _('Fecha'),
@@ -78,8 +79,8 @@ class ConsumosVehiculosForm(ModelForm):
             'conductor': _('Conductor'),
         }
         help_texts = {
-            'matricula': _('Matrícula del vehiculo'),
+            'matricula': _('Matrícula del vehículo'),
             'fecha': _('Fecha del trayecto'),
             'km': _('Distancia recorrida en kilómetros'),
-            'conductor': _('Conductor del vehiculo'),
+            'conductor': _('Conductor del vehículo'),
         }

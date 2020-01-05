@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Strongly Typed by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>{{ nombre_empresa }} - Sistema de gestión de CO2</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'gestion_co2/assets/css/main.css' %}" />
+		<script src="https://cdn.jsdelivr.net/npm//vega@3.2"></script>
+		<script src="https://cdn.jsdelivr.net/npm//vega-lite@2.4.1"></script>
+		<script src="https://cdn.jsdelivr.net/npm//vega-embed@3.0"></script>
+	</head>
+	<body class="homepage is-preload">
+		<div id="page-wrapper">
+
+			{% include 'header.html' %}
+			
+			{% block content %}{% endblock %}
+			
+			{% include 'footer.html' %}
+			
+		</div>
+			
+	</body>
+</html>
