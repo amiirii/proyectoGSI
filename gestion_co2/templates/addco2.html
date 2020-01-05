@@ -25,21 +25,8 @@
 						</header>
 						<div class="row aln-center">
 							<form action="" method="post">
-                                <div>Cargo en la empresa</div>
-                                <input name="admin" type="checkbox" value="admin"> Administrador
-                                <input name="gerente" type="checkbox" value="gerente"> Gerente
-                                <input name="empleado" type="checkbox" value="empleado"> Empleado
-                            
-                                <div>Tipo creacion del co2</div>
-                                <input name="automovil" type="checkbox" value="auto"> Automovil
-                                <input name="electricidad" type="checkbox" value="electricidad"> Electricidad
-                                
-                                <div>Emision de co2</div>
-                                <input type="text" name="co2" value="co2">
-                                
-                                <div>
-                                    <input type="submit" value="Enviar">
-                                </div>
+								{{ form.as_p }}
+                                <input type="submit" value="Enviar"/>
                             </form>
 						</div>
 					</div>

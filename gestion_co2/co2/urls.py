@@ -22,5 +22,7 @@ urlpatterns = [
     path('login/', views.login),
     path('logout/', views.logout),
     path('add/', views.add),
+    path('add/emisiones_vehiculo/', views.add_emisiones_vehiculo),
+    path('add/emisiones_edificio/', views.add_emisiones_edificio),
     path('informe_mensual/', views.informe_mensual),
 ]

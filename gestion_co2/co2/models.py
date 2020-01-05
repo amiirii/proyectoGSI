@@ -1,5 +1,19 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.forms import ModelForm
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        empleado = Empleado()
+        empleado.user = instance
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    if hasattr(instance, 'empleado'):
+        instance.empleado.save()
 
 # Create your models here.
 class Empleado(models.Model):
@@ -34,3 +48,13 @@ class SistemaInteligente(models.Model):
     id_edificio = models.ForeignKey(Edificio, on_delete=models.CASCADE)
     tipo = models.TextField()
     generado = models.DecimalField(decimal_places=2, max_digits=5)
+
+class ConsumosEdificiosForm(ModelForm):
+    class Meta:
+        model = ConsumosEdificios
+        fields = ['id_edificio', 'mes', 'year', 'consumo']
+
+class ConsumosVehiculosForm(ModelForm):
+    class Meta:
+        model = ConsumosVehiculos
+        fields = ['matricula', 'fecha', 'km', 'conductor']

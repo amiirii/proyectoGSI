@@ -12,7 +12,11 @@
                     <li><a class="icon solid fa-home" href="/"><span>Página principal</span></a></li>
                     <li><a class="icon solid fa-code" href="/api/"><span>API</span></a></li>
                     {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                    <li><a class="icon solid fa-cog" href="/admin/"><span>Página de administración</span></a></li>
+                    {% else %}
                     <li><a class="icon solid fa-tree" href="/add/"><span>Añadir emisiones de CO<sub>2</sub></span></a></li>
+                    {% endif %}
                     <li>
                         <a href="#" class="icon fa-user"><span>Bienvenid@, {{ user.username }}</span></a>
                         <ul>

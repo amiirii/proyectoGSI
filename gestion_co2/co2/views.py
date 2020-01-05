@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, logout as do_logout, login as do_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+
+from .models import ConsumosVehiculosForm, ConsumosEdificiosForm
 
 # Create your views here.
 def index(request):
@@ -58,4 +61,13 @@ def informe_mensual(request):
 
 @login_required(login_url='/login')
 def add(request):
-	return render(request, 'addco2.html', context={'nombre_empresa': settings.NOMBRE_EMPRESA})
+	return render(request, 'addco2.html', context={'form': ConsumosVehiculosForm(), 'nombre_empresa': settings.NOMBRE_EMPRESA})
+
+@login_required(login_url='/login')
+def add_emisiones_vehiculo(request):
+	return HttpResponse(ConsumosVehiculosForm().as_p())
+
+@login_required(login_url='/login')
+def add_emisiones_edificio(request):
+	return HttpResponse(ConsumosEdificiosForm().as_p())
+
