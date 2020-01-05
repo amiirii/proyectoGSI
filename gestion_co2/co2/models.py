@@ -34,7 +34,7 @@ class Vehiculo(models.Model):
 
 class ConsumosVehiculos(models.Model):
     matricula = models.ForeignKey(Vehiculo, on_delete=models.CASCADE)
-    fecha = models.DateTimeField()
+    fecha = models.DateField()
     km = models.DecimalField(decimal_places=2, max_digits=5)
     conductor = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -58,13 +58,13 @@ class ConsumosEdificiosForm(ModelForm):
             'id_edificio': _('ID del edificio'),
             'mes': _('Mes'),
             'year': _('Año'),
-            'consumo': _('Consumo eléctrico (en kW/h)'),
+            'consumo': _('Consumo eléctrico (en kWh)'),
         }
         help_texts = {
             'id_edificio': _('El identificador del edificio'),
             'mes': _('Mes en el que se han realizado las emisiones'),
             'year': _('Año en el que se han realizado las emisiones'),
-            'consumo': _('Consumo eléctrico del edificio durante el mes en kW/h'),
+            'consumo': _('Consumo eléctrico del edificio durante el mes en kWh'),
         }
 
 class ConsumosVehiculosForm(ModelForm):

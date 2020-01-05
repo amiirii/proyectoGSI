@@ -61,5 +61,24 @@ def informe_mensual(request):
 
 @login_required(login_url='/login')
 def add(request):
-	return render(request, 'addco2.html', context={'form_vehiculo': ConsumosVehiculosForm(), 'form_edificio': ConsumosEdificiosForm(), 'nombre_empresa': settings.NOMBRE_EMPRESA})
+    if request.method == 'GET':
+	    return render(request, 'addco2.html', context={'form_vehiculo': ConsumosVehiculosForm(), 'form_edificio': ConsumosEdificiosForm(), 'nombre_empresa': settings.NOMBRE_EMPRESA})
+    else:
+        if request.POST['tipo_emisiones'] == 'edificio':
+            form = ConsumosEdificiosForm(request.POST)
+            if form.is_valid:
+                form.save()
+                return HttpResponse('Los datos se han añadido correctamente')
+            else:
+                return HttpResponse('Ha ocurrido un error')
+
+        else:
+            form = ConsumosVehiculosForm(request.POST)
+            if form.is_valid:
+                # TODO establecer que el conductor es el usuario que envía el formulario
+                form.save()
+                return HttpResponse('Los datos se han añadido correctamente')
+            else:
+                return HttpResponse('Ha ocurrido un error')
+        
 
