@@ -1,89 +1,75 @@
+{% extends "base.html" %}
+
 {% load static %}
 {% load django_altair %}
-<!DOCTYPE HTML>
-<!--
-	Strongly Typed by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>{{ nombre_empresa }} - Sistema de gestión de CO2</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{% static 'gestion_co2/assets/css/main.css' %}" />
-		{% include 'scripts.html' %}
-	</head>
-	<body class="homepage is-preload">
-		<div id="page-wrapper">
 
-			{% include 'header.html' %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm//vega@3.2"></script>
+<script src="https://cdn.jsdelivr.net/npm//vega-lite@2.4.1"></script>
+<script src="https://cdn.jsdelivr.net/npm//vega-embed@3.0"></script>
+{% endblock %}
 
-			<!-- Features -->
-				<section id="features">
-					<div class="container">
-						<header>
-							<h2>Gráficos</h2>
-						</header>
-						<div class="row aln-center">
-							<div class="col-4 col-6-medium col-12-small">
+{% block content %}
+<!-- Features -->
+<section id="features">
+	<div class="container">
+		<header>
+			<h2>Gráficos</h2>
+		</header>
+		<div class="row aln-center">
+			<div class="col-4 col-6-medium col-12-small">
 
-								<!-- Feature -->
-									<section>
-										<div class="image featured">
-											{% render_chart chart %}
-										</div>
-										<header>
-											<h3>Gráfico 1</h3>
-										</header>
-										<p>Descripción gráfico 1</p>
-									</section>
-
-							</div>
-							<div class="col-4 col-6-medium col-12-small">
-
-								<!-- Feature -->
-									<section>
-										<div class="image featured">
-											{% render_chart chart1 %}
-										</div>
-										<header>
-											<h3>Gráfico 2</h3>
-										</header>
-										<p>Descripción gráfico 2</p>
-									</section>
-
-							</div>
-							<div class="col-4 col-6-medium col-12-small">
-
-								<!-- Feature -->
-									<section>
-										<a href="#" class="image featured"><img src="{%static 'gestion_co2/images/pic03.jpg' %}" alt="" /></a>
-										<header>
-											<h3>Gráfico 3</h3>
-										</header>
-										<p>Descripción gráfico 3</p>
-									</section>
-
-							</div>
-							<div class="col-12">
-								<ul class="actions">
-									<li><a href="/informe_mensual/" class="button icon solid fa-file">Ver informe mensual</a></li>
-								</ul>
-							</div>
+				<!-- Feature -->
+					<section>
+						<div class="image featured">
+							{% render_chart chart %}
 						</div>
-					</div>
-				</section>
+						<header>
+							<h3>Gráfico 1</h3>
+						</header>
+						<p>Descripción gráfico 1</p>
+					</section>
 
-			<!-- Banner -->
-				<section id="banner">
-					<div class="container">
-						<p>{{ mensaje_banner }}</p>
-					</div>
-				</section>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
 
-				{% include 'footer.html' %}
+				<!-- Feature -->
+					<section>
+						<div class="image featured">
+							{% render_chart chart1 %}
+						</div>
+						<header>
+							<h3>Gráfico 2</h3>
+						</header>
+						<p>Descripción gráfico 2</p>
+					</section>
 
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+
+				<!-- Feature -->
+					<section>
+						<a href="#" class="image featured"><img src="{%static 'gestion_co2/images/pic03.jpg' %}" alt="" /></a>
+						<header>
+							<h3>Gráfico 3</h3>
+						</header>
+						<p>Descripción gráfico 3</p>
+					</section>
+
+			</div>
+			<div class="col-12">
+				<ul class="actions">
+					<li><a href="/informe_mensual/" class="button icon solid fa-file">Ver informe mensual</a></li>
+				</ul>
+			</div>
 		</div>
-	</body>
-</html>
+	</div>
+</section>
+
+<!-- Banner -->
+<section id="banner">
+	<div class="container">
+		<p>{{ mensaje_banner }}</p>
+	</div>
+</section>
+{% endblock %}

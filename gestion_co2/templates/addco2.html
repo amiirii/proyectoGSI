@@ -1,118 +1,48 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE HTML>
-<!--
-	Strongly Typed by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>{{ nombre_empresa }} - Sistema de gestión de CO2</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{% static 'gestion_co2/assets/css/main.css' %}" />
-	</head>
-	<body class="homepage is-preload">
-		<div id="page-wrapper">
 
-			{% include 'header.html' %}
+{% block scripts %}
+<script src="{% static 'gestion_co2/assets/js/form_co2.js' %}" defer="defer"></script>
+{% endblock %}
 
-			<!-- Features -->
-				<section id="features">
-					<div class="container">
-						<header>
-							<h2>Emisones de CO<sub>2</sub></h2>
-						</header>
-						<div class="row aln-center">
-							<form>
-								<p>Selecciona el tipo de emisiones</p>
-								<input type="button" id="mostrar_form_vehiculo" value="Trayecto en vehículo"/>
-								<input type="button" id="mostrar_form_edificio" value="Consumo de edificio"/>
-							</form>
-						</div>
-						<div class="row aln-center">
-							<form id="form_vehiculo">
-								{% csrf_token %}
-								{% for field in form_vehiculo %}
-									<b>{{ field.label }}</b>
-									{{ field.help_text }}
-									{{ field }}
-								{% endfor %}
-								<input type="hidden" name="tipo_emisiones" value="vehiculo"/>
-								<input type="submit" value="Enviar"/>
-								<p class="message"></p>
-							</form>
-							<form id="form_edificio">
-								{% csrf_token %}
-								{% for field in form_edificio %}
-									<b>{{ field.label }}</b>
-									{{ field.help_text }}
-									{{ field }}
-								{% endfor %}
-								<input type="hidden" name="tipo_emisiones" value="edificio"/>
-								<input type="submit" value="Enviar"/>
-								<p class="message"></p>
-                            </form>
-						</div>
-					</div>
-				</section>
-
-				{% include 'footer.html' %}
-
+{% block content %}
+<!-- Features -->
+<section id="features">
+	<div class="container">
+		<header>
+			<h2>Emisones de CO<sub>2</sub></h2>
+		</header>
+		<div class="row aln-center">
+			<form>
+				<p>Selecciona el tipo de emisiones</p>
+				<input type="button" id="mostrar_form_vehiculo" value="Trayecto en vehículo"/>
+				<input type="button" id="mostrar_form_edificio" value="Consumo de edificio"/>
+			</form>
 		</div>
-
-		{% include 'scripts.html' %}
-		<script>
-			// Ocultar los formularios al inicio
-			$("#form_edificio, #form_vehiculo").hide();
-
-			// Ignorar acción por defecto de los botones
-			$("#form_edificio, #form_vehiculo").submit(function(e){
-				return false;
-			});
-
-			// Mostrar el formulario correspondiente a cada botón
-			$("#mostrar_form_edificio").click(function() {
-				$("#form_edificio").fadeIn();
-				$("#form_vehiculo").hide();
-			});
-			$("#mostrar_form_vehiculo").click(function() {
-				$("#form_vehiculo").fadeIn();
-				$("#form_edificio").hide();	
-			});
-
-			// Enviar los datos del formulario
-			$("#form_edificio input[type=submit]").click(function() {
-				var res = {};
-				$("#form_edificio input, #form_edificio select, #form_edificio textarea").each(function(i, obj) {
-					res[obj.name] = $(obj).val();
-				});
-				$.post("/add/", res).done(function(data) {
-					$("#form_edificio .message").text(data);
-					$("#form_edificio .message").show();
-					$("#form_edificio")[0].reset();
-
-					setTimeout(function() {
-						$("#form_edificio .message").fadeOut();
-					}, 3000);
-				});
-			});
-
-			$("#form_vehiculo input[type=submit]").click(function() {
-				var res = {};
-				$("#form_vehiculo input, #form_vehiculo select, #form_vehiculo textarea").each(function(i, obj) {
-					res[obj.name] = $(obj).val();
-				});
-				$.post("/add/", res).done(function(data) {
-					$("#form_vehiculo .message").text(data);
-					$("#form_vehiculo .message").show();
-					$("#form_vehiculo")[0].reset();
-
-					setTimeout(function() {
-						$("#form_vehiculo .message").fadeOut();
-					}, 3000);
-				});
-			});
-		</script>
-	</body>
-</html>
+		<div class="row aln-center">
+			<form id="form_vehiculo">
+				{% csrf_token %}
+				{% for field in form_vehiculo %}
+					<b>{{ field.label }}</b>
+					{{ field.help_text }}
+					{{ field }}
+				{% endfor %}
+				<input type="hidden" name="tipo_emisiones" value="vehiculo"/>
+				<input type="submit" value="Enviar"/>
+				<p class="message"></p>
+			</form>
+			<form id="form_edificio">
+				{% csrf_token %}
+				{% for field in form_edificio %}
+					<b>{{ field.label }}</b>
+					{{ field.help_text }}
+					{{ field }}
+				{% endfor %}
+				<input type="hidden" name="tipo_emisiones" value="edificio"/>
+				<input type="submit" value="Enviar"/>
+				<p class="message"></p>
+			</form>
+		</div>
+	</div>
+</section>
+{% endblock %}

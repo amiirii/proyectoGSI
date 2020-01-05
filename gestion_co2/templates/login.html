@@ -1,47 +1,22 @@
-{% load static %}
-<!DOCTYPE HTML>
-<!--
-	Strongly Typed by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>{{ nombre_empresa }} - Sistema de gestión de CO2</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{% static 'gestion_co2/assets/css/main.css' %}" />
-	</head>
-	<body class="homepage is-preload">
-		<div id="page-wrapper">
-
-			{% include 'header.html' %}
-
-			<!-- Features -->
-				<section id="features">
-					<div class="container">
-						<header>
-							<h2>Iniciar sesión</h2>
-						</header>
-						<div class="row aln-center">
-							<!-- LOGIN -->
-							<form action="/login/" method="POST">
-								{% if nxt %}
-								<input type="hidden" name="next" value="{{ nxt }}"/>
-								{% endif %}
-								{{ form.as_p }}
-								{% csrf_token %}
-								<button type="submit">Login</button>
-							</form>
-						</div>
-					</div>
-				</section>
-
-			{% include 'footer.html' %}
-
+{% extends "base.html" %}
+{% block content %}
+<!-- Features -->
+<section id="features">
+	<div class="container">
+		<header>
+			<h2>Iniciar sesión</h2>
+		</header>
+		<div class="row aln-center">
+			<!-- LOGIN -->
+			<form action="/login/" method="POST">
+				{% if nxt %}
+				<input type="hidden" name="next" value="{{ nxt }}"/>
+				{% endif %}
+				{{ form.as_p }}
+				{% csrf_token %}
+				<button type="submit">Login</button>
+			</form>
 		</div>
-
-		{% include 'scripts.html' %}
-
-	</body>
-</html>
+	</div>
+</section>
+{% endblock %}
