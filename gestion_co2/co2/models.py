@@ -5,6 +5,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
+from .triptocarbon import TripToCarbon
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -35,11 +37,12 @@ class Edificio(models.Model):
     tipo_edificio = models.ForeignKey(TiposEdificio, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.direccion
+        return '{} ({})'.format(self.direccion, self.tipo_edificio.nombre)
 
 class TiposVehiculo(models.Model):
     tipo = models.AutoField(primary_key=True)
     nombre = models.TextField(unique=True)
+    id_triptocarbon = models.TextField(unique=True)
 
     def __str__(self):
         return self.nombre
@@ -91,6 +94,11 @@ class ConsumosEdificiosForm(forms.ModelForm):
             'year': _('Año en el que se han realizado las emisiones'),    
         }
 
+    def save(self, commit=True):
+        # 0.265 kg de CO2 = 1kWh según la Agencia Europea de Medio Ambiente
+        self.instance.emisiones_co2 = self.cleaned_data['consumo'] * 0.265
+        return super(ConsumosEdificiosForm, self).save(commit=commit)
+
 class ConsumosVehiculosForm(forms.ModelForm):
     km = forms.IntegerField(help_text=_('Distancia recorrida en kilómetros'), label=_('Distancia (km)'))
     fields= ['km']
@@ -107,3 +115,11 @@ class ConsumosVehiculosForm(forms.ModelForm):
             'matricula': _('Matrícula del vehículo'),
             'fecha': _('Fecha del trayecto'),
         }
+
+    def save(self, commit=True):
+        ttc = TripToCarbon()
+        
+        consumo_km = self.instance.matricula.consumo_km / 100
+        litros_consumidos = self.cleaned_data['km'] * consumo_km
+        self.instance.emisiones_co2 = ttc.huella_consumo_combustible(litros_consumidos, self.instance.matricula.tipo.id_triptocarbon)
+        return super(ConsumosVehiculosForm, self).save(commit=commit)

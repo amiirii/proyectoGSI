@@ -1,4 +1,13 @@
 {% extends "base.html" %}
+
+{% load django_altair %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm//vega@3.2"></script>
+<script src="https://cdn.jsdelivr.net/npm//vega-lite@2.4.1"></script>
+<script src="https://cdn.jsdelivr.net/npm//vega-embed@3.0"></script>
+{% endblock %}
+
 {% block content %}
 <!-- Features -->
 <section id="features">
@@ -16,7 +25,7 @@
 				<!-- Feature -->
 					<section>
 						<div class="image featured">
-							{{ grafico }}
+							{% render_chart emisiones_edificios %}
 						</div>
 						<header>
 							<h3>Emisiones por tipo de instalación</h3>
@@ -30,7 +39,7 @@
 				<!-- Feature -->
 					<section>
 						<div class="image featured">
-							{{ grafico }}
+							{% render_chart emisiones_vehiculos %}
 						</div>
 						<header>
 							<h3>Emisiones por tipo de vehículo</h3>

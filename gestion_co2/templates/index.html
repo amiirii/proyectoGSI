@@ -22,7 +22,7 @@
 				<!-- Feature -->
 					<section>
 						<div class="image featured">
-							{% render_chart chart %}
+							{% render_chart emisiones_vehiculos %}
 						</div>
 						<header>
 							<h3>Vehículos</h3>
@@ -36,7 +36,7 @@
 				<!-- Feature -->
 					<section>
 						<div class="image featured">
-							{% render_chart chart1 %}
+							{% render_chart emisiones_edificios %}
 						</div>
 						<header>
 							<h3>Edificios</h3>
@@ -63,13 +63,6 @@
 				</ul>
 			</div>
 		</div>
-	</div>
-</section>
-
-<!-- Banner -->
-<section id="banner">
-	<div class="container">
-		<p>{{ mensaje_banner }}</p>
 	</div>
 </section>
 {% endblock %}

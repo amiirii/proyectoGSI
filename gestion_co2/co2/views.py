@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import altair as alt
-import pandas as pd
-
-from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, logout as do_logout, login as do_login
@@ -13,41 +9,17 @@ from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
-from .models import ConsumosVehiculosForm, ConsumosEdificiosForm, ConsumosVehiculos, ConsumosEdificios
+from .graficos import *
+
+from .models import ConsumosVehiculosForm, ConsumosEdificiosForm
 
 # Create your views here.
 def index(request):
-    consumos_edificios = ConsumosEdificios.objects.values('id_edificio').annotate(dcount=Sum('emisiones_co2'))
-    consumos_vehiculos = ConsumosVehiculos.objects.values('matricula').annotate(dcount=Sum('emisiones_co2'))
-
-    ids_edificios = [e['id_edificio'] for e in consumos_edificios]
-    ids_vehiculos = [e['matricula'] for e in consumos_vehiculos]
-
-    emisiones_edificios = [float(e['dcount']) for e in consumos_edificios]
-    emisiones_vehiculos = [float(e['dcount']) for e in consumos_vehiculos]
-    
-
-    datos = pd.DataFrame({
-        'vehiculo': ids_vehiculos,
-        'km': emisiones_vehiculos
+    return render(request, 'index.html', context={
+        'emisiones_vehiculos': grafico_emisiones_vehiculos(), 
+        'emisiones_edificios': grafico_emisiones_edificios(), 
+        'nombre_empresa': settings.NOMBRE_EMPRESA
     })
-
-    chart = alt.Chart(datos).mark_bar().encode(
-        x='vehiculo',
-        y='km'
-    ).interactive()
-
-    datos2 = pd.DataFrame({
-        'edificio': ids_edificios,
-        'consumo': emisiones_edificios
-    })
-
-    chart1 = alt.Chart(datos2).mark_bar().encode(
-        x='edificio',
-        y='consumo',
-    ).interactive()
-
-    return render(request, 'index.html', context={'chart': chart, 'chart1': chart1, 'nombre_empresa': settings.NOMBRE_EMPRESA})
 
 def login(request):
 
@@ -84,23 +56,35 @@ def login(request):
 
 
     # Si llegamos al final renderizamos el formulario
-    return render(request, "login.html", context={'form': form, 'nxt': nxt, 'nombre_empresa': settings.NOMBRE_EMPRESA})
+    return render(request, "login.html", context={
+        'form': form, 
+        'nxt': nxt, 
+        'nombre_empresa': settings.NOMBRE_EMPRESA
+    })
 
 def logout(request):
     do_logout(request)
     return redirect('/')
 
 def informe_mensual(request):
-    return render(request, 'informe.html', context={'nombre_empresa': settings.NOMBRE_EMPRESA})
+    return render(request, 'informe.html', context={
+        'emisiones_vehiculos': grafico_emisiones_vehiculos(), 
+        'emisiones_edificios': grafico_emisiones_edificios(), 
+        'nombre_empresa': settings.NOMBRE_EMPRESA
+    })
 
 @login_required(login_url='/login')
 def add(request):
     if request.method == 'GET':
-	    return render(request, 'addco2.html', context={'form_vehiculo': ConsumosVehiculosForm(), 'form_edificio': ConsumosEdificiosForm(), 'nombre_empresa': settings.NOMBRE_EMPRESA})
+	    return render(request, 'addco2.html', context={
+            'form_vehiculo': ConsumosVehiculosForm(), 
+            'form_edificio': ConsumosEdificiosForm(), 
+            'nombre_empresa': settings.NOMBRE_EMPRESA
+        })
     else:
         if request.POST['tipo_emisiones'] == 'edificio':
             form = ConsumosEdificiosForm(request.POST)
-            if form.is_valid:
+            if form.is_valid():
                 form.save()
                 return HttpResponse('Los datos se han añadido correctamente')
             else:
@@ -108,9 +92,10 @@ def add(request):
 
         else:
             form = ConsumosVehiculosForm(request.POST)
-            if form.is_valid:
-                # TODO establecer que el conductor es el usuario que envía el formulario
-                form.save()
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.conductor = request.user
+                instance.save()
                 return HttpResponse('Los datos se han añadido correctamente')
             else:
                 return HttpResponse('Ha ocurrido un error')
