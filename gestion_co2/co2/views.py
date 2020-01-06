@@ -17,8 +17,8 @@ from .models import ConsumosVehiculosForm, ConsumosEdificiosForm, ConsumosVehicu
 
 # Create your views here.
 def index(request):
-    consumos_edificios = ConsumosEdificios.objects.values('id_edificio').annotate(dcount=Sum('consumo'))
-    consumos_vehiculos = ConsumosVehiculos.objects.values('matricula').annotate(dcount=Sum('km'))
+    consumos_edificios = ConsumosEdificios.objects.values('id_edificio').annotate(dcount=Sum('emisiones_co2'))
+    consumos_vehiculos = ConsumosVehiculos.objects.values('matricula').annotate(dcount=Sum('emisiones_co2'))
 
     ids_edificios = [e['id_edificio'] for e in consumos_edificios]
     ids_vehiculos = [e['matricula'] for e in consumos_vehiculos]

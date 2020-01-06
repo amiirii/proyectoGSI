@@ -3,9 +3,69 @@
 <!-- Features -->
 <section id="features">
 	<div class="container">
-		<header>
-			<h1>Informe mensual</h1>
-		</header>
+		<article class="box post">
+			<header>
+				<h2>Informe mensual</h2>
+			</header>
+			<p>Datos de emisiones durante el último mes</p>
+		</article>
+		
+		<div class="row aln-center">
+			<div class="col-4 col-6-medium col-12-small">
+
+				<!-- Feature -->
+					<section>
+						<div class="image featured">
+							{{ grafico }}
+						</div>
+						<header>
+							<h3>Emisiones por tipo de instalación</h3>
+						</header>
+						<p>CO<sub>2</sub> emitido por cada tipo de instalación</p>
+					</section>
+
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+
+				<!-- Feature -->
+					<section>
+						<div class="image featured">
+							{{ grafico }}
+						</div>
+						<header>
+							<h3>Emisiones por tipo de vehículo</h3>
+						</header>
+						<p>CO<sub>2</sub> emitido por cada tipo de vehículo</p>
+					</section>
+
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+
+				<!-- Feature -->
+					<section>
+						<div class="image featured">
+							{{ grafico }}
+						</div>
+						<header>
+							<h3>Emisiones evitadas</h3>
+						</header>
+						<p>Emisiones de CO<sub>2</sub> evitadas por usar fuentes de energía renovables</p>
+					</section>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+
+				<!-- Feature -->
+					<section>
+						<div class="image featured">
+							{{ grafico }}
+						</div>
+						<header>
+							<h3>Emisiones evitadas</h3>
+						</header>
+						<p>Emisiones de CO<sub>2</sub> evitadas por usar fuentes de energía renovables</p>
+					</section>
+			</div>
+		</div>
 	</div>
 </section>
 
@@ -15,4 +75,65 @@
 		<p>{{ mensaje_banner }}</p>
 	</div>
 </section>
+
+<section id="main">
+	<div class="container">
+		<div class="row aln-center">
+			<div class="col-4 col-6-medium col-12-small">
+
+				<!-- Feature -->
+					<section>
+						<div class="image featured">
+							{{ grafico }}
+						</div>
+						<header>
+							<h3>Emisiones por tipo de instalación</h3>
+						</header>
+						<p>CO<sub>2</sub> emitido por cada tipo de instalación</p>
+					</section>
+
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+
+				<!-- Feature -->
+					<section>
+						<div class="image featured">
+							{{ grafico }}
+						</div>
+						<header>
+							<h3>Emisiones por tipo de vehículo</h3>
+						</header>
+						<p>CO<sub>2</sub> emitido por cada tipo de vehículo</p>
+					</section>
+
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+
+				<!-- Feature -->
+					<section>
+						<div class="image featured">
+							{{ grafico }}
+						</div>
+						<header>
+							<h3>Emisiones evitadas</h3>
+						</header>
+						<p>Emisiones de CO<sub>2</sub> evitadas por usar fuentes de energía renovables</p>
+					</section>
+			</div>
+			<div class="col-4 col-6-medium col-12-small">
+
+				<!-- Feature -->
+					<section>
+						<div class="image featured">
+							{{ grafico }}
+						</div>
+						<header>
+							<h3>Emisiones evitadas</h3>
+						</header>
+						<p>Emisiones de CO<sub>2</sub> evitadas por usar fuentes de energía renovables</p>
+					</section>
+			</div>
+		</div>
+	</div>
+</section id="main">
 {% endblock %}
