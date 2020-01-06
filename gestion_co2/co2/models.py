@@ -73,8 +73,13 @@ class ConsumosEdificios(models.Model):
     emisiones_co2 = models.DecimalField(decimal_places=2, max_digits=5)
 
 class TipoSistemaInteligente(models.Model):
+    class FactorEmision(models.IntegerChoices):
+        POSITIVO = 1
+        NEGATIVO = -1
+
     tipo = models.AutoField(primary_key=True)
     nombre = models.TextField()
+    factor = models.IntegerField(choices=FactorEmision.choices)
 
     def __str__(self):
         return self.nombre
