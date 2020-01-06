@@ -23,6 +23,9 @@ class Empleado(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     rol = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.usuario.username
+
 class TiposEdificio(models.Model):
     tipo = models.AutoField(primary_key=True)
     nombre = models.TextField(unique=True)
@@ -69,11 +72,26 @@ class ConsumosEdificios(models.Model):
     year = models.IntegerField()
     emisiones_co2 = models.DecimalField(decimal_places=2, max_digits=5)
 
+class TipoSistemaInteligente(models.Model):
+    tipo = models.AutoField(primary_key=True)
+    nombre = models.TextField()
+
+    def __str__(self):
+        return self.nombre
+
 class SistemaInteligente(models.Model):
     id_sistema = models.AutoField(primary_key=True)
     id_edificio = models.ForeignKey(Edificio, on_delete=models.CASCADE)
-    tipo = models.TextField()
+    tipo = models.ForeignKey(TipoSistemaInteligente, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{} ({})'.format(self.tipo.nombre, self.id_edificio.direccion)
+
+class Co2Compensado(models.Model):
+    id_sistema = models.ForeignKey(SistemaInteligente, on_delete=models.CASCADE)
     emisiones_co2 = models.DecimalField(decimal_places=2, max_digits=5)
+    mes = models.IntegerField()
+    year = models.IntegerField()
 
 class ConsumosEdificiosForm(forms.ModelForm):
     consumo = forms.IntegerField(help_text=_('Consumo eléctrico del edificio durante el mes en kWh'), label=_('Consumo eléctrico (en kWh)'))

@@ -14,7 +14,7 @@
 <section id="features">
 	<div class="container">
 		<header>
-			<h2>Gráficos</h2>
+			<h2>Emisiones</h2>
 		</header>
 		<div class="row aln-center">
 			<div class="col-4 col-6-medium col-12-small">
@@ -49,7 +49,9 @@
 
 				<!-- Feature -->
 					<section>
-						<a href="#" class="image featured"><img src="{%static 'gestion_co2/images/pic03.jpg' %}" alt="" /></a>
+						<div href="#" class="image featured">
+							{% render_chart emisiones_edificios %}
+						</div>
 						<header>
 							<h3>Compensado</h3>
 						</header>
@@ -59,7 +61,7 @@
 			</div>
 			<div class="col-12">
 				<ul class="actions">
-					<li><a href="/informe_mensual/" class="button icon solid fa-file">Ver informe mensual</a></li>
+					<li><a href="/informe_mensual/" class="button icon solid fa-file">Ver informe completo</a></li>
 				</ul>
 			</div>
 		</div>

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load static %}
 {% load django_altair %}
 
 {% block scripts %}
@@ -53,20 +54,7 @@
 				<!-- Feature -->
 					<section>
 						<div class="image featured">
-							{{ grafico }}
-						</div>
-						<header>
-							<h3>Emisiones evitadas</h3>
-						</header>
-						<p>Emisiones de CO<sub>2</sub> evitadas por usar fuentes de energía renovables</p>
-					</section>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-
-				<!-- Feature -->
-					<section>
-						<div class="image featured">
-							{{ grafico }}
+							{% render_chart emisiones_vehiculos %}
 						</div>
 						<header>
 							<h3>Emisiones evitadas</h3>
@@ -76,6 +64,17 @@
 			</div>
 		</div>
 	</div>
+	<!-- Excerpts -->
+	<section>
+		<article class="box excerpt">
+			<header>
+				<span class="date">July 30</span>
+				<h3>Just another post</h3>
+			</header>
+			<p>Lorem ipsum dolor odio facilisis convallis. Etiam non nunc vel est
+			suscipit convallis non id orci lorem ipsum sed magna consequat feugiat lorem dolore.</p>
+		</article>
+	</section>
 </section>
 
 <!-- Banner -->
@@ -93,56 +92,28 @@
 				<!-- Feature -->
 					<section>
 						<div class="image featured">
-							{{ grafico }}
+							{% render_chart emisiones_vehiculos %}
 						</div>
 						<header>
 							<h3>Emisiones por tipo de instalación</h3>
 						</header>
 						<p>CO<sub>2</sub> emitido por cada tipo de instalación</p>
 					</section>
-
 			</div>
+			
 			<div class="col-4 col-6-medium col-12-small">
-
 				<!-- Feature -->
 					<section>
 						<div class="image featured">
-							{{ grafico }}
+							{% render_chart emisiones_vehiculos %}
 						</div>
 						<header>
 							<h3>Emisiones por tipo de vehículo</h3>
 						</header>
 						<p>CO<sub>2</sub> emitido por cada tipo de vehículo</p>
 					</section>
-
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-
-				<!-- Feature -->
-					<section>
-						<div class="image featured">
-							{{ grafico }}
-						</div>
-						<header>
-							<h3>Emisiones evitadas</h3>
-						</header>
-						<p>Emisiones de CO<sub>2</sub> evitadas por usar fuentes de energía renovables</p>
-					</section>
-			</div>
-			<div class="col-4 col-6-medium col-12-small">
-
-				<!-- Feature -->
-					<section>
-						<div class="image featured">
-							{{ grafico }}
-						</div>
-						<header>
-							<h3>Emisiones evitadas</h3>
-						</header>
-						<p>Emisiones de CO<sub>2</sub> evitadas por usar fuentes de energía renovables</p>
-					</section>
 			</div>
 		</div>
 	</div>
-</section id="main">
+</section>
 {% endblock %}

@@ -25,3 +25,7 @@ class ConsumosEdificiosViewSet(viewsets.ModelViewSet):
 class SistemasInteligentesViewSet(viewsets.ModelViewSet):
     queryset = SistemaInteligente.objects.all()
     serializer_class = SistemasInteligentesSerializer
+
+class Co2CompensadoViewSet(viewsets.ModelViewSet):
+    queryset = Co2Compensado.objects.all()
+    serializer_class = Co2CompensadoSerializer

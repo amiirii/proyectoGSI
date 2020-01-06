@@ -53,10 +53,17 @@ class TripToCarbon:
                     raise TTCException(response_obj['errorMessage'])
         
     def huella_consumo_combustible(self, litros, combustible, cod_pais="def"):
-        return self._request(activity=litros / TripToCarbon.litres_gallon, activityType="fuel", country=cod_pais, fuelType=combustible.value)
+        if isinstance(combustible, FuelType):
+            combustible = combustible.value
+        return self._request(activity=litros / TripToCarbon.litres_gallon, activityType="fuel", country=cod_pais, fuelType=combustible)
 
     def huella_km_recorridos(self, km, combustible, vehiculo, cod_pais="def"):
-        return self._request(activity=km / TripToCarbon.km_mile, activityType="miles", country=cod_pais, fuelType=combustible.value, mode=vehiculo.value)
+        if isinstance(combustible, FuelType):
+            combustible = combustible.value
+
+        if isinstance(vehiculo, Mode):
+            vehiculo = vehiculo.value
+        return self._request(activity=km / TripToCarbon.km_mile, activityType="miles", country=cod_pais, fuelType=combustible, mode=vehiculo)
 
 if __name__ == '__main__':
     ttc = TripToCarbon()
