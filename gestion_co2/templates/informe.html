@@ -15,9 +15,9 @@
 	<div class="container">
 		<article class="box post">
 			<header>
-				<h2>Informe mensual</h2>
+				<h2>Informe de emisiones</h2>
 			</header>
-			<p>Datos de emisiones durante el último mes</p>
+			<p>Datos de emisiones de CO2 durante los últimos 2 años</p>
 		</article>
 		
 		<div class="row aln-center">
@@ -54,7 +54,7 @@
 				<!-- Feature -->
 					<section>
 						<div class="image featured">
-							{% render_chart emisiones_vehiculos %}
+							{% render_chart emisiones_evitadas %}
 						</div>
 						<header>
 							<h3>Emisiones evitadas</h3>
@@ -68,11 +68,10 @@
 	<section>
 		<article class="box excerpt">
 			<header>
-				<span class="date">July 30</span>
-				<h3>Just another post</h3>
+				
+				<h3>Programas de compensación de CO<sub>2</sub></h3>
 			</header>
-			<p>Lorem ipsum dolor odio facilisis convallis. Etiam non nunc vel est
-			suscipit convallis non id orci lorem ipsum sed magna consequat feugiat lorem dolore.</p>
+			<p>Esta empresa realiza donaciones a programas de compensación de CO<sub>2</sub> en función de sus emisiones</p>
 		</article>
 	</section>
 </section>
@@ -80,7 +79,7 @@
 <!-- Banner -->
 <section id="banner">
 	<div class="container">
-		<p>{{ mensaje_banner }}</p>
+		<p>kg de CO<sub>2</sub> emitidos en el último año: {{ total_kg_co2 }}</p>
 	</div>
 </section>
 
@@ -92,25 +91,25 @@
 				<!-- Feature -->
 					<section>
 						<div class="image featured">
-							{% render_chart emisiones_vehiculos %}
+							{% render_chart emisiones_sistemas_inteligentes %}
 						</div>
 						<header>
-							<h3>Emisiones por tipo de instalación</h3>
+							<h3>Emisiones por sistemas inteligentes</h3>
 						</header>
-						<p>CO<sub>2</sub> emitido por cada tipo de instalación</p>
+						<p>CO<sub>2</sub> emitido por cada tipo de sistema</p>
 					</section>
 			</div>
-			
+
 			<div class="col-4 col-6-medium col-12-small">
 				<!-- Feature -->
 					<section>
 						<div class="image featured">
-							{% render_chart emisiones_vehiculos %}
+							{% render_chart grafico_comparativa %}
 						</div>
 						<header>
-							<h3>Emisiones por tipo de vehículo</h3>
+							<h3>Comparativa de años</h3>
 						</header>
-						<p>CO<sub>2</sub> emitido por cada tipo de vehículo</p>
+						<p>Comparativa de emisiones en los dos últimos años</p>
 					</section>
 			</div>
 		</div>

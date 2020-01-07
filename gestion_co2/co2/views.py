@@ -18,6 +18,7 @@ def index(request):
     return render(request, 'index.html', context={
         'emisiones_vehiculos': grafico_emisiones_vehiculos(), 
         'emisiones_edificios': grafico_emisiones_edificios(), 
+        'emisiones_evitadas': grafico_emisiones_evitadas(),
         'nombre_empresa': settings.NOMBRE_EMPRESA
     })
 
@@ -67,9 +68,14 @@ def logout(request):
     return redirect('/')
 
 def informe_mensual(request):
+    graf_comparativa, total_emisiones = grafico_comparativa()
     return render(request, 'informe.html', context={
         'emisiones_vehiculos': grafico_emisiones_vehiculos(), 
         'emisiones_edificios': grafico_emisiones_edificios(), 
+        'emisiones_evitadas': grafico_emisiones_evitadas(),
+        'emisiones_sistemas_inteligentes': grafico_sistemas_inteligentes(),
+        'grafico_comparativa': graf_comparativa,
+        'total_kg_co2': total_emisiones,
         'nombre_empresa': settings.NOMBRE_EMPRESA
     })
 

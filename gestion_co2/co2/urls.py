@@ -22,5 +22,5 @@ urlpatterns = [
     path('login/', views.login),
     path('logout/', views.logout),
     path('add/', views.add),
-    path('informe_mensual/', views.informe_mensual),
+    path('informe_emisiones/', views.informe_mensual),
 ]

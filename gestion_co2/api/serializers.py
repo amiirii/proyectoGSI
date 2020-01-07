@@ -49,7 +49,10 @@ class SistemasInteligentesSerializer(serializers.ModelSerializer):
 class Co2CompensadoSerializer(serializers.ModelSerializer):
     def validate_emisiones_co2(self, value):
         s = SistemaInteligente.objects.get(id_sistema=self.initial_data['id_sistema'])
-        return float(value * s.tipo.factor) * 0.265
+        if (s.tipo.factor == TipoSistemaInteligente.FactorEmision.POSITIVO and value < 0) or (s.tipo.factor == TipoSistemaInteligente.FactorEmision.NEGATIVO and value > 0):
+            return -value
+        else:
+            return value
 
     class Meta:
         model = Co2Compensado
